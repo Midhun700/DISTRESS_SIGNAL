@@ -10,6 +10,22 @@
     <h1>Send Distress Signal</h1>
     <button id="sendSignalBtn">Send Signal</button>
 
-    <script src="jsbutton.js"></script> <!-- Link to JavaScript file -->
+    <script>
+        const socket = new WebSocket('ws://localhost:3000');
+
+        socket.addEventListener('open', () => {
+            console.log('WebSocket connection established');
+        });
+
+        socket.addEventListener('message', (event) => {
+            console.log('Message from server:', event.data);
+            alert(event.data); // Display push notification from server
+        });
+
+        document.getElementById('sendSignalBtn').addEventListener('click', () => {
+            console.log('Sending distress signal to server');
+            socket.send('Distress signal');
+        });
+    </script>
 </body>
 </html>
